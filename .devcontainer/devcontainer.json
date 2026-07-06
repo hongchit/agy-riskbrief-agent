@@ -1,0 +1,30 @@
+{
+  "name": "Antigravity CLI",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers-extra/features/uv:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/node:2": {
+      "nodeGypDependencies": true,
+      "version": "lts",
+      "npmVersion": "lts",
+      "pnpmVersion": "latest",
+      "nvmVersion": "latest"
+    }
+  },
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=devcontainer-uv-cache,target=/home/vscode/.cache/uv,type=volume",
+    "source=devcontainer-gemini,target=/home/vscode/.gemini,type=volume"
+  ],
+  "containerEnv": {
+    "UV_CACHE_DIR": "/home/vscode/.cache/uv",
+    "UV_LINK_MODE": "copy"
+  },
+  "postCreateCommand": "sudo mkdir -p /home/vscode/.cache/uv /home/vscode/.gemini/antigravity-cli && sudo chown -R vscode:vscode /home/vscode/.cache/uv /home/vscode/.gemini",
+  "postStartCommand": "sudo mkdir -p /home/vscode/.gemini/antigravity-cli && sudo chown -R vscode:vscode /home/vscode/.gemini"
+}
